@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/ragnarok/static/css/main.e1a6e322.css",
+    "main.js": "/ragnarok/static/js/main.75a8f464.js",
+    "static/js/453.2838e13c.chunk.js": "/ragnarok/static/js/453.2838e13c.chunk.js",
+    "static/media/cardBack.jpg": "/ragnarok/static/media/cardBack.f575dadc21538731a3a9.jpg",
+    "index.html": "/ragnarok/index.html",
+    "main.e1a6e322.css.map": "/ragnarok/static/css/main.e1a6e322.css.map",
+    "main.75a8f464.js.map": "/ragnarok/static/js/main.75a8f464.js.map",
+    "453.2838e13c.chunk.js.map": "/ragnarok/static/js/453.2838e13c.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e1a6e322.css",
+    "static/js/main.75a8f464.js"
+  ]
+}
