@@ -1,24 +1,24 @@
 import "./styles.css"
-import { Container, Box, Typography } from "@mui/material";
-import Menu from "../Menu";
+import { Container, Box, Typography, useMediaQuery } from "@mui/material";
+import { useTheme } from '@mui/material/styles';
+
+
 
 function TitleScreen(props) {
-    return (<Menu />
 
+    const theme = useTheme();
+    const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
+    console.log(isSmallScreen);
+
+    return (<Container>
+        <Box color={"#3f5956"} textAlign={"center"} py={2}>
+            <Typography fontFamily={"hexenkotel"} variant={isSmallScreen ? "h2" : "h1"} component="h1" >Ragnarok Online</Typography>
+            <Typography fontFamily={"hexenkotel"} variant={isSmallScreen ? "h3" : "h2"} component="h2">
+                Memory Game
+            </Typography>
+        </Box>
+    </Container >
     )
 }
 
 export default TitleScreen
-
-{
-    <Container>
-    <Box textAlign={"center"}>
-        <Typography fontWeight={700} variant="h2" component="h1" gutterBottom>
-            Ragnarok Online
-        </Typography>
-        <Typography fontWeight={500} variant="h3" component="h2" gutterBottom>
-            Memory Game
-        </Typography>
-    </Box>
-</Container >
-}
