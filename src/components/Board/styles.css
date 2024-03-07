@@ -4,8 +4,8 @@
 
 .card {
     position: relative;
-    width: 161.25px;
-    height: 215px;
+    /* width: 161.25px;
+    height: 215px; */
 }
 
 .front,
@@ -21,5 +21,5 @@
 }
 
 .back {
-    border: 3px solid black;
+    border: 4px solid #252b3a;
 }

@@ -11,9 +11,9 @@ function TitleScreen(props) {
     console.log(isSmallScreen);
 
     return (<Container>
-        <Box color={"#3f5956"} textAlign={"center"} py={2}>
+        <Box sx={{ WebkitTextStrokeColor: "black", WebkitTextStrokeWidth: "3px" }} color={"#3f5956"} textAlign={"center"} py={2}>
             <Typography fontFamily={"hexenkotel"} variant={isSmallScreen ? "h2" : "h1"} component="h1" >Ragnarok Online</Typography>
-            <Typography fontFamily={"hexenkotel"} variant={isSmallScreen ? "h3" : "h2"} component="h2">
+            <Typography sx={{ WebkitTextStrokeWidth: "2.5px" }} fontFamily={"hexenkotel"} variant={isSmallScreen ? "h3" : "h2"} component="h2">
                 Memory Game
             </Typography>
         </Box>
