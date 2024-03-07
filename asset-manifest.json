@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/ragnarok/static/css/main.ece50fe4.css",
-    "main.js": "/ragnarok/static/js/main.a5d21c7d.js",
+    "main.css": "/ragnarok/static/css/main.aacbf586.css",
+    "main.js": "/ragnarok/static/js/main.a3b13af3.js",
     "static/js/453.90a37ed4.chunk.js": "/ragnarok/static/js/453.90a37ed4.chunk.js",
     "static/media/Hexenkotel.ttf": "/ragnarok/static/media/Hexenkotel.396348e509c8a8571df8.ttf",
     "static/media/Allembert.ttf": "/ragnarok/static/media/Allembert.7fc04fcb9eab0aa52f62.ttf",
     "static/media/cardBack.jpg": "/ragnarok/static/media/cardBack.f575dadc21538731a3a9.jpg",
     "index.html": "/ragnarok/index.html",
-    "main.ece50fe4.css.map": "/ragnarok/static/css/main.ece50fe4.css.map",
-    "main.a5d21c7d.js.map": "/ragnarok/static/js/main.a5d21c7d.js.map",
+    "main.aacbf586.css.map": "/ragnarok/static/css/main.aacbf586.css.map",
+    "main.a3b13af3.js.map": "/ragnarok/static/js/main.a3b13af3.js.map",
     "453.90a37ed4.chunk.js.map": "/ragnarok/static/js/453.90a37ed4.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.ece50fe4.css",
-    "static/js/main.a5d21c7d.js"
+    "static/css/main.aacbf586.css",
+    "static/js/main.a3b13af3.js"
   ]
 }
