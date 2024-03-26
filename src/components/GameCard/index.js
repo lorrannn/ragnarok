@@ -1,7 +1,7 @@
 import "./styles.css"
 import { Box, useMediaQuery } from "@mui/material"
 import { useTheme } from '@mui/material/styles';
-import backgroundImage from "../../assets/ludeCardBack.jpg"
+
 
 
 function GameCard(props) {
