@@ -1,7 +1,7 @@
 import "./styles.css"
 import { Box, useMediaQuery } from "@mui/material"
 import { useTheme } from '@mui/material/styles';
-import backgroundImage from "../../assets/cardBack.jpg"
+import backgroundImage from "../../assets/ludeCardBack.jpg"
 
 
 function GameCard(props) {
@@ -17,7 +17,7 @@ function GameCard(props) {
 
         >
             <Box className={props.flipped ? "front flipCard" : "front"} component="img" src={`https://static.divine-pride.net/images/items/cards/${props.cardId}.png`} />
-            <Box className={props.flipped ? "back" : "back flipCard"} component="img" src={backgroundImage} />
+            <Box className={props.flipped ? "back" : "back flipCard"} component="div" />
         </Box>
     )
 }
