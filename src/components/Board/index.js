@@ -1,71 +1,183 @@
 import "./styles.css"
-import { Box, Grid, Button, Stack, Container, useMediaQuery } from "@mui/material";
-import backgroundImage from "./../../assets/cardBack.jpg"
+import { Grid, Button, Stack, Container } from "@mui/material";
 import { useEffect, useState } from "react";
+import GameCard from "../GameCard";
+import GameOverScreen from "../GameOverScreen";
 
-// scripts
-import GameLogic from "../../scripts/gameLogic";
-import { useTheme } from '@mui/material/styles';
+const cardsMinId = 4001;
+const cardsMaxId = 4610;
+const easyDifficulty = 8;
+const mediumDifficulty = 16;
+const hardDifficulty = 32;
+
+let initialTime;
+let finalTime;
+let elapsedTime;
+let mistakes;
+
+function getRandomNumber(min, max) {
+
+    return Math.floor(Math.random() * (max - min + 1) + min);
+
+};
+
+function shuffleCardsArray(arrayToShuffle) {
+
+    for (let i = arrayToShuffle.length - 1; i >= 0; i--) {
+
+        let randomIndex = getRandomNumber(0, i);
+
+        [arrayToShuffle[i], arrayToShuffle[randomIndex]] = [arrayToShuffle[randomIndex], arrayToShuffle[i]]
+    }
+
+};
+
+function getCards(pairsQuantity) {
+
+    const newCardsArray = [];
+
+    for (let i = 0; i < pairsQuantity; i++) {
+
+        // gets a randomId
+        let randomId = getRandomNumber(cardsMinId, cardsMaxId);
+
+        // if it already exists, gets another
+        while (newCardsArray.includes(randomId)) {
+            randomId = getRandomNumber(cardsMinId, cardsMaxId);
+        }
+
+        newCardsArray.push({ id: randomId, key: 1 });
+        newCardsArray.push({ id: randomId, key: 2 });
+    }
+
+    return newCardsArray
+}
+
 
 function Board() {
 
-    const [gameLogic, setGameLogic] = useState(null);
-    const [gameStarted, setGameStarted] = useState(false);
-    const [gameOver, setGameOver] = useState(true);
-
-    const theme = useTheme();
-    const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"))
-
-    function handleStartGame(selectedDifficulty) {
-
-        let newGameLogic = new GameLogic();
-        newGameLogic.startGame(selectedDifficulty);
-
-        setGameLogic(newGameLogic);
-        setGameStarted(true);
-        setGameOver(false);
-
-    }
-
-    function handleSelectCard(card) {
-        gameLogic.selectCard(card);
-        setGameOver(gameLogic.foundCards.length == gameLogic.cardsArray.length);
-    }
+    const [gameStarted, setGameStarted] = useState(false)
+    const [gameOver, setGameOver] = useState(false)
+    const [cardsArray, setCardsArray] = useState([])
+    const [foundCards, setFoundCards] = useState([])
+    const [activeCards, setActiveCards] = useState([])
+    const [count, setCount] = useState(0)
 
     function backToTitle() {
-        setGameStarted(false);
+        setGameStarted(prevState => false);
+        setGameOver(prevState => false);
     }
 
+    function startGame(difficulty) {
 
-    return (
-        <Container>
-            {!gameStarted ? (
-                <Stack justifyContent={"Center"} spacing={2} direction={"row"}>
-                    <Button onClick={() => { handleStartGame("easy") }} variant="contained" sx={{ width: "100px" }}>Easy</Button>
-                    <Button onClick={() => { handleStartGame("medium") }} variant="contained" sx={{ width: "100px" }}>Medium</Button>
-                    <Button onClick={() => { handleStartGame("hard") }} variant="contained" sx={{ width: "100px" }}>Hard</Button>
-                </Stack>) : (!gameOver ? (
+        let gameDifficulty
+
+        switch (difficulty) {
+
+            case 'easy':
+                gameDifficulty = easyDifficulty;
+                break;
+
+            case 'medium':
+                gameDifficulty = mediumDifficulty;
+                break;
+
+            case 'hard':
+                gameDifficulty = hardDifficulty;
+                break;
+
+            default:
+                gameDifficulty = mediumDifficulty;
+                break;
+
+        }
+
+        let newCardsArray = getCards(gameDifficulty);
+        shuffleCardsArray(newCardsArray);
+        setCardsArray(prevState => newCardsArray);
+        setFoundCards(prevState => [])
+        setGameStarted(prevState => true);
+        setGameOver(prevState => false);
+        initialTime = Date.now();
+        mistakes = 0;
+
+    }
+
+    function endGame() {
+
+        finalTime = Date.now();
+        elapsedTime = Math.floor((finalTime - initialTime) / 1000)
+        setGameOver(prevState => true)
+    }
+
+    function selectCard(card) {
+        if (!foundCards.includes(card)) {
+
+            if (!activeCards.includes(card) && activeCards.length < 2) {
+                setActiveCards(prevState => [...prevState, card])
+            }
+        }
+    }
+
+    useEffect(() => {
+        setCount(prevState => prevState + 1)
+
+        if (count > 1 && activeCards.length == 2) {
+
+            let firstCard = activeCards[0]
+            let secondCard = activeCards[1]
+
+            if (firstCard.id == secondCard.id) {
+                setFoundCards(prevState => [...prevState, firstCard, secondCard])
+                setActiveCards(prevState => [])
+            }
+
+            else {
+                setTimeout(() => { setActiveCards(prevState => []) }, 1000)
+                mistakes++;
+            }
+        }
+
+    }, [activeCards])
+
+    useEffect(() => {
+
+        if (count > 1 && foundCards.length == cardsArray.length) {
+
+            setTimeout(() => {
+                endGame();
+            }, 1000)
+
+        }
+
+    }, [foundCards])
+
+    return (<Container>
+        {!gameStarted ? (
+            <Stack justifyContent={"Center"} spacing={2} direction={"row"}>
+                <Button onClick={() => { startGame("easy") }} variant="contained" sx={{ width: "100px" }}>Easy</Button>
+                <Button onClick={() => { startGame("medium") }} variant="contained" sx={{ width: "100px" }}>Medium</Button>
+                <Button onClick={() => { startGame("hard") }} variant="contained" sx={{ width: "100px" }}>Hard</Button>
+            </Stack>) : (!gameOver ? (
+                <>
                     <Grid container gap="10px" justifyContent={"space-evenly"}>
-                        {gameLogic.cardsArray.map((card, index) => {
+                        {cardsArray.map((card, index) => {
                             return (
-                                <Grid item
-                                    width={isSmallScreen ? "80.625px" : "134.375px"}
-                                    height={isSmallScreen ? "107.5px" : "179.16px"}
+                                <Grid
+                                    item
                                     key={index}
-                                    className={`card ${card}`}
-                                    onClick={(event) => { handleSelectCard(event.target) }}>
-                                    <Box className="front flipCard" component="img" src={`https://static.divine-pride.net/images/items/cards/${card}.png`}></Box>
-                                    <Box className="back" component="img" src={backgroundImage}></Box>
+                                    onClick={(event) => { selectCard(card) }}
+                                >
+                                    <GameCard flipped={!(activeCards.includes(card) || foundCards.includes(card))} cardId={card.id} />
                                 </Grid>
                             )
                         })}
-                    </Grid>) : (
-                    <Box textAlign="center">
-                        <Button onClick={backToTitle} variant="contained">Play Again</Button>
-                    </Box>)
-            )}
-        </Container>
-    )
+                    </Grid>
+                </>) : (
+                <GameOverScreen backToTitle={backToTitle} elapsedTime={elapsedTime} mistakes={mistakes} />
+            )
+        )}
+    </Container>)
 }
 
 export default Board
