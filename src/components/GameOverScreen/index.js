@@ -16,6 +16,7 @@ function GameOverScreen(props) {
         <Button onClick={props.backToTitle} variant="contained">Play Again</Button>
         <Box mt={5} color={"#3f5956"}>
             <Typography fontFamily={"hexenkotel"} variant="h3">Statistics</Typography>
+            <Typography fontFamily={"hexenkotel"} variant="h5">Difficulty: {props.difficulty}</Typography>
             <Typography fontFamily={"hexenkotel"} variant="h5" >Time: {elapsedMinutes}:{elapsedSeconds < 10 ? `0${elapsedSeconds}` : elapsedSeconds}</Typography>
             <Typography fontFamily={"hexenkotel"} variant="h5">Mistakes: {props.mistakes}</Typography>
 

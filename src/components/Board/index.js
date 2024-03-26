@@ -14,6 +14,7 @@ let initialTime;
 let finalTime;
 let elapsedTime;
 let mistakes;
+let chosenDifficulty;
 
 function getRandomNumber(min, max) {
 
@@ -71,6 +72,7 @@ function Board() {
     function startGame(difficulty) {
 
         let gameDifficulty
+        chosenDifficulty = difficulty
 
         switch (difficulty) {
 
@@ -174,7 +176,12 @@ function Board() {
                         })}
                     </Grid>
                 </>) : (
-                <GameOverScreen backToTitle={backToTitle} elapsedTime={elapsedTime} mistakes={mistakes} />
+                <GameOverScreen
+                    backToTitle={backToTitle}
+                    elapsedTime={elapsedTime}
+                    mistakes={mistakes}
+                    difficulty={chosenDifficulty}
+                />
             )
         )}
     </Container>)
